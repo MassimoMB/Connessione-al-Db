@@ -3,12 +3,12 @@
 use Massimo\Sakila2\DBConfig;
 use Massimo\Sakila2\MyPDO;
 
-require_once __DIR__ . '/composer/autoload_real.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $dbConfig = new DBConfig(
     "localhost",
     "sakila",
-    "83",
+    "3306",
     "root",
     "root"
 );
