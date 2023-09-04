@@ -16,20 +16,12 @@ $dbConfig = new DBConfig(
 
 $db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
 
-/*
-$result = $db->getData("actor", []);
-
-var_dump($result);
-die();
-
-foreach($result as $singleResult){
-    echo $singleResult["name"];
-}
 
 echo "Hello Sakila MIT DB";
-*/
+
 
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -43,7 +35,7 @@ echo "Hello Sakila MIT DB";
   <body>
     <h1>Actors:</h1>
     <ul class="list group">
-        <?php foreach ($db->getDataIterator("actor") as $actor): ?>
+    <?php  foreach ($db->getDataIterator("actor") as $actor): ?>
                 <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
             <?php endforeach;?>
     </ul>

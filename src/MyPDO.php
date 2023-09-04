@@ -22,10 +22,10 @@ class MyPDO extends \PDO implements DatabaseContract{
 
     public function getDataIterator(string $tableName, array $params = []): mixed{
 
-        $query = "SELECT * FROM" . $tableName;
+        $query = "SELECT * FROM " . $tableName;
 
         $statement = $this->prepare($query);
-        $statement->execute(); 
+        $statement->execute();
 
         return $statement->fetchAll();
     }
