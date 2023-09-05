@@ -4,7 +4,6 @@ namespace Massimo\Sakila2;
 use PDOStatement;
 
 
-
 class MyPDOQueryResult implements DatabaseQueryResultContract{
 
 private PDOStatement $statement; 

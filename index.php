@@ -15,6 +15,7 @@ $dbConfig = new DBConfig(
 );
 
 $db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
+$db2 = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_MySQLi);
 
 var_dump($_POST);
 
@@ -88,7 +89,7 @@ echo "Hello Sakila MIT DB";
         <div class="card-body">
         <div class="card-title">Actors SQL query #3:</div>
           <ul class="list group">
-            <?php $result = $db->getData("SELECT * FROM actor order by actor_id desc limit 5", []);?>
+            <?php $result = $db2->getData("SELECT * FROM actor order by actor_id desc limit 5", []);?>
             <?php while ( $actor = $result->fetch()):?>
               <li class= "list-group-item"><a href="update.php?actor_id=<?=$actor['actor_id']?>"><?=$actor['first_name']?>,<?=$actor['last_name']?></a></li>
             <?php endwhile;?>

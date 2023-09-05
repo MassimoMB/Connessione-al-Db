@@ -13,6 +13,9 @@ class DatabaseFactory{
 
         if($type == DatabaseContract::TYPE_PDO)
         return self::CreateWithPDO($dbConfig);
+        if($type == DatabaseContract::TYPE_MySQLi)
+        return self::CreateWithMySQLi($dbConfig);
+        
         throw new Exception("Not Implemented");
 
     }
@@ -28,7 +31,19 @@ class DatabaseFactory{
 
         throw new Exception("Database connection failed with error: {$e->getMessage()}");
     }
+}
+    
+    private static function CreateWithMySQLi(DbConfig $dbConfig): MySQLi{
 
+        try{
+            $mysqli = new MySQLi($dbConfig);
+                
+            return $mysqli;
+    
+        } catch(Exception $e){
+    
+            throw new Exception("Database connection failed with error: {$e->getMessage()}");
+        }
 
     }
 }
