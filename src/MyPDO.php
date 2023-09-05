@@ -20,14 +20,12 @@ class MyPDO extends \PDO implements DatabaseContract{
 
     }
 
-    public function getDataIterator(string $tableName, array $params = []): mixed{
-
-        $query = "SELECT * FROM " . $tableName;
+    public function getData(string $query, array $params = []): DatabaseQueryResultContract{
 
         $statement = $this->prepare($query);
-        $statement->execute();
+        $statement->execute($params);
 
-        return $statement->fetchAll();
+        return new MyPDOQueryResult($statement);
     }
 
 

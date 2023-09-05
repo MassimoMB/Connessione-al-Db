@@ -8,5 +8,10 @@ interface DatabaseContract{
 
     const TYPE_MySQLi = "mysqli";
 
-    public function getDataIterator(string $tableName, array $params = []): mixed;
+    public function getData(string $query, array $params = []): DatabaseQueryResultContract;
 }
+
+
+
+    
+

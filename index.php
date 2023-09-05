@@ -33,12 +33,39 @@ echo "Hello Sakila MIT DB";
   </head>
 
   <body>
-    <h1>Actors:</h1>
-    <ul class="list group">
-    <?php  foreach ($db->getDataIterator("actor") as $actor): ?>
-                <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
-            <?php endforeach;?>
-    </ul>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+        <div class="card-title">Actors SQL query #1:</div>
+          <ul class="list group">
+            <?php $result = $db->getData("SELECT * FROM actor where first_name LIKE :param1", ["param1" => '%pen%']);?>
+            <!--
+            <?php /*// foreach ($result->fetchAll()): ?>
+                      <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+            <?php // endforeach;*/?>
+            -->
+            
+            <?php while ( $actor = $result->fetch()):?>
+            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+            <?php endwhile;?>
+          </ul>
+        </div>
+      </div>
+      
+      <hr>
+
+      <div class="card">
+        <div class="card-body">
+        <div class="card-title">Actors SQL query #2:</div>
+          <ul class="list group">
+            <?php $result = $db->getData("SELECT * FROM actor where first_name LIKE ?", ['%alb%']);?>
+            <?php while ( $actor = $result->fetch()):?>
+            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+            <?php endwhile;?>
+          </ul>
+        </div>
+      </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </body>
 </html>
