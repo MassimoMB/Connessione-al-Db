@@ -64,7 +64,7 @@ echo "Hello Sakila MIT DB";
             -->
             
             <?php while ( $actor = $result->fetch()):?>
-            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+            <li class= "list-group-item"><a href="update.php?actor_id=<?=$actor['actor_id']?>"><?=$actor['first_name']?>,<?=$actor['last_name']?></a></li>
             <?php endwhile;?>
           </ul>
         </div>
@@ -78,7 +78,7 @@ echo "Hello Sakila MIT DB";
           <ul class="list group">
             <?php $result = $db->getData("SELECT * FROM actor where first_name LIKE ?", ['%alb%']);?>
             <?php while ( $actor = $result->fetch()):?>
-            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+              <li class= "list-group-item"><a href="update.php?actor_id=<?=$actor['actor_id']?>"><?=$actor['first_name']?>,<?=$actor['last_name']?></a></li>
             <?php endwhile;?>
           </ul>
         </div>
@@ -90,7 +90,7 @@ echo "Hello Sakila MIT DB";
           <ul class="list group">
             <?php $result = $db->getData("SELECT * FROM actor order by actor_id desc limit 5", []);?>
             <?php while ( $actor = $result->fetch()):?>
-            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+              <li class= "list-group-item"><a href="update.php?actor_id=<?=$actor['actor_id']?>"><?=$actor['first_name']?>,<?=$actor['last_name']?></a></li>
             <?php endwhile;?>
           </ul>
         </div>
