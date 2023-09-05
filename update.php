@@ -42,14 +42,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $lastName = $_POST['last_name'];
   $id = $_POST['actor_id'];
   
-  //$db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
-  //  [$firstName, $lastName]
-  //]);
-
-  $db->doWithTransaction([
-    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
-    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
+  $db->setData("UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?",[
+    [$firstName, $lastName, $id]
   ]);
+
+  /*$db->doWithTransaction([
+    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
+    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
+  ]);*/
 
   header("Location: index.php");
 }
