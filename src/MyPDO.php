@@ -2,6 +2,7 @@
 
 namespace Massimo\Sakila2;
 
+
 /**
  * Summary of_construct
  * @param \Massimo\Sakila2\DBConfig $dbConfig
@@ -36,6 +37,26 @@ class MyPDO extends \PDO implements DatabaseContract{
             $statement->execute($item);
         }
 
+    }
+
+    public function doWithTransaction(array $operations): void{
+        
+        try{
+            
+            $this->beginTransaction();
+
+            foreach($operations as $operation){
+
+                $this->exec($operation);
+            }
+
+            $this->commit();
+        } catch(\Exception $e){
+
+            $this->rollBack();
+
+            throw new \Exception("Transiction aborted: " . $e->getMessage());
+        }
     }
 
 

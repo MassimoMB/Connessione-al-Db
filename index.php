@@ -23,8 +23,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $firstName = $_POST['first_name'];
   $lastName = $_POST['last_name'];
   
-  $db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
-    [$firstName, $lastName]
+  //$db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
+  //  [$firstName, $lastName]
+  //]);
+
+  $db->doWithTransaction([
+    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
+    "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
   ]);
 
   header("Location: index.php");
