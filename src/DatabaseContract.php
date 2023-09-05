@@ -9,6 +9,8 @@ interface DatabaseContract{
     const TYPE_MySQLi = "mysqli";
 
     public function getData(string $query, array $params = []): DatabaseQueryResultContract;
+
+    public function setData(string $command, array $items): void;
 }
 
 

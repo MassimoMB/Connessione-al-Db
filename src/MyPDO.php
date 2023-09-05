@@ -28,6 +28,16 @@ class MyPDO extends \PDO implements DatabaseContract{
         return new MyPDOQueryResult($statement);
     }
 
+    public function setData(string $command, array $items): void{
+
+        $statement = $this->prepare($command);
+
+        foreach($items as $item){
+            $statement->execute($item);
+        }
+
+    }
+
 
     /**
      * Summary of getDsn

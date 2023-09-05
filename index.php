@@ -16,6 +16,19 @@ $dbConfig = new DBConfig(
 
 $db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
 
+var_dump($_POST);
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+  $firstName = $_POST['first_name'];
+  $lastName = $_POST['last_name'];
+  
+  $db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
+    [$firstName, $lastName]
+  ]);
+
+  header("Location: index.php");
+}
 
 echo "Hello Sakila MIT DB";
 
@@ -63,6 +76,29 @@ echo "Hello Sakila MIT DB";
             <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
             <?php endwhile;?>
           </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+        <div class="card-title">Actors SQL query #3:</div>
+          <ul class="list group">
+            <?php $result = $db->getData("SELECT * FROM actor order by actor_id desc limit 5", []);?>
+            <?php while ( $actor = $result->fetch()):?>
+            <li class= "list-group-item"><?=$actor['first_name']?>,<?=$actor['last_name']?></li>
+            <?php endwhile;?>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+        <div class="card-title">FORM:</div>
+          <form action="" method="POST">
+            <input type="text" name="first_name">
+            <input type="text" name="last_name">
+            <input type="submit">
+          </form>
         </div>
       </div>
     </div>
