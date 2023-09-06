@@ -5,6 +5,7 @@
 use Massimo\Sakila2\DatabaseContract;
 use Massimo\Sakila2\DatabaseFactory;
 use Massimo\Sakila2\DBConfig;
+use Massimo\Sakila2\Helper;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -17,6 +18,7 @@ $dbConfig = new DBConfig(
 );
 
 $db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
+$db2 = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_MySQLi);
 $selctedActor = null;
 
 var_dump($_POST);
@@ -42,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $lastName = $_POST['last_name'];
   $id = $_POST['actor_id'];
   
-  $db->setData("UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?",[
+  $db2->setData("UPDATE actor SET first_name = ?, last_name = ? WHERE actor_id = ?",[
     [$firstName, $lastName, $id]
   ]);
 
@@ -74,8 +76,8 @@ echo "Hello Sakila MIT DB";
         <div class="card-title">FORM:</div>
           <form action="" method="POST">
             <input type="hidden" name="actor_id"value="<?=$id?>">
-            <input type="text" name="first_name" value="<?= !is_null($selctedActor) ? $selctedActor['first_name'] : ""?>">
-            <input type="text" name="last_name" value="<?=!is_null($selctedActor) ? $selctedActor['first_name'] : ""?>">
+            <input type="text" name="first_name" value="<?=Helper::AccessToValue($selctedActor, 'first_name')?>">
+            <input type="text" name="last_name" value="<?=Helper::AccessToValue($selctedActor, 'last_name')?>">
             <input type="submit">
           </form>
         </div>

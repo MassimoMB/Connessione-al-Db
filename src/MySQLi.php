@@ -2,6 +2,8 @@
 
 namespace Massimo\Sakila2;
 
+use Exception;
+
 class MySQLi extends \mysqli implements DatabaseContract{
 
     public function __construct(DbConfig $Db_config){
@@ -9,17 +11,42 @@ class MySQLi extends \mysqli implements DatabaseContract{
     }
 
     public function getData(string $query, array $params = []): DatabaseQueryResultContract{
-        $result = $this->query($query);
+        
+        $statement = $this->prepare($query);
+
+        $statement->execute($params)>
+
+        $result = $statement->get_result(); //ci ritorna un mysqli result ed è compatibile con la firma del costruttore della nostra classe.
 
         return new MySQLiQueryResult($result);
     }
 
     public function setData(string $command, array $items): void{
-        throw new \Exception('not implemented');
+        
+        $statement = $this->prepare($command);
+        
+        foreach($items as $item){
+            
+             $statement->execute($item);
+        }
     }
 
     public function doWithTransaction(array $operations): void{
-        throw new \Exception('not implemented');
+        try{
+            $this->begin_transaction();
+
+            foreach($operations as $operation){
+
+                $this->query($operation);
+            }
+
+            $this->commit();
+        }catch(Exception $e){
+
+            $this->rollBack();
+
+            throw new Exception("Transiction aborted: " . $e->getMessage());
+        }
     }
 
     public function __destruct(){

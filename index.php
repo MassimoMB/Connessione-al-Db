@@ -24,9 +24,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   $firstName = $_POST['first_name'];
   $lastName = $_POST['last_name'];
   
-  //$db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
-  //  [$firstName, $lastName]
-  //]);
+  $db->setData("INSERT INTO actor(first_name, last_name) VALUES(?,?)",[
+    [$firstName, $lastName]
+  ]);
 
   $db->doWithTransaction([
     "INSERT INTO actor(first_name, last_name) VALUES('$firstName', '$lastName')",
@@ -77,7 +77,7 @@ echo "Hello Sakila MIT DB";
         <div class="card-body">
         <div class="card-title">Actors SQL query #2:</div>
           <ul class="list group">
-            <?php $result = $db->getData("SELECT * FROM actor where first_name LIKE ?", ['%alb%']);?>
+            <?php $result = $db2->getData("SELECT * FROM actor where first_name LIKE ?", ['%alb%']);?>
             <?php while ( $actor = $result->fetch()):?>
               <li class= "list-group-item"><a href="update.php?actor_id=<?=$actor['actor_id']?>"><?=$actor['first_name']?>,<?=$actor['last_name']?></a></li>
             <?php endwhile;?>
