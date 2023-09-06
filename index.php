@@ -3,19 +3,14 @@
 use Massimo\Sakila2\DatabaseContract;
 use Massimo\Sakila2\DatabaseFactory;
 use Massimo\Sakila2\DBConfig;
+use Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dbConfig = new DBConfig(
-    "localhost",
-    "sakila",
-    "3306",
-    "root",
-    "root"
-);
 
-$db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
-$db2 = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_MySQLi);
+
+$db = DatabaseFactory::Create(DatabaseContract::TYPE_PDO);
+$db2 = DatabaseFactory::Create(DatabaseContract::TYPE_MySQLi);
 
 var_dump($_POST);
 

@@ -17,8 +17,8 @@ $dbConfig = new DBConfig(
     "root"
 );
 
-$db = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_PDO);
-$db2 = DatabaseFactory::Create($dbConfig, DatabaseContract::TYPE_MySQLi);
+$db = DatabaseFactory::Create(DatabaseContract::TYPE_PDO);
+$db2 = DatabaseFactory::Create(DatabaseContract::TYPE_MySQLi);
 $selctedActor = null;
 
 var_dump($_POST);

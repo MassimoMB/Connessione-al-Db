@@ -12,5 +12,7 @@
             "email": "119443136+MassimoMB@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
 }
