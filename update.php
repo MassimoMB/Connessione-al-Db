@@ -2,26 +2,11 @@
 
 //error_reporting(E_ERROR | E_PARSE); //skip del warning per ovviare al problema di quelli stampati prima dell'header che bloccavano la trasmissione.
 
-use Massimo\Sakila2\DatabaseContract;
-use Massimo\Sakila2\DatabaseFactory;
-use Massimo\Sakila2\DBConfig;
 use Massimo\Sakila2\Helper;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/common.php';
 
-$dbConfig = new DBConfig(
-    "localhost",
-    "sakila",
-    "3306",
-    "root",
-    "root"
-);
-
-$db = DatabaseFactory::Create(DatabaseContract::TYPE_PDO);
-$db2 = DatabaseFactory::Create(DatabaseContract::TYPE_MySQLi);
-$selctedActor = null;
-
-var_dump($_POST);
+$selctedActor= null;
 
 if($_SERVER['REQUEST_METHOD'] == "GET"){
     $id = $_GET['actor_id'];
